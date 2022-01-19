@@ -18,11 +18,8 @@ public class ProductDto {
 	private String name;
 	private Long price;
 	private String img;
-	private Integer inStock;
 	private String shortDescription;
 	private String longDescription;
-	private Date createdAt;
-	private Boolean enabled;
 	private CategoryDto category;
 	List<CartLineDto> cartLinesDto = new ArrayList<>();
 

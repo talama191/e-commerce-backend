@@ -32,20 +32,11 @@ public class Product {
 	@Column(name = "img")
 	private String img;
 	
-	@Column(name = "in_stock")
-	private Integer inStock;
-	
 	@Column(name = "short_description")
 	private String shortDescription;
 	
 	@Column(name = "long_description")
 	private String longDescription;
-	
-	@Column(name = "created_at")
-	private Date createdAt;
-	
-	@Column(name = "enabled")
-	private Boolean enabled;
 	
 	@ManyToOne
 	@JoinColumn(name = "category_id")

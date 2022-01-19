@@ -49,12 +49,6 @@ public class User {
 	@Column(name = "dob")
 	private Date dob;
 	
-	@Column(name = "enabled")
-	private Boolean enabled;
-	
-	@Column(name = "created_at")
-	private Timestamp createdAt;
-	
 	@OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
 	private Cart cart;
 	

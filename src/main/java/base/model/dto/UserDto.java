@@ -22,8 +22,6 @@ public class UserDto {
 	private String address;
 	private Character gender;
 	private Date dob;
-	private Boolean enabled;
-	private Timestamp createdAt;
 	private CartDto cart;
 	private Set<RoleDto> role;
 	List<OrderDto> ordersDto = new ArrayList<>();
