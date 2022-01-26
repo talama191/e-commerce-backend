@@ -15,20 +15,24 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
 
 import base.model.dto.ProductDto;
+import base.model.entity.Category;
 import base.model.entity.Product;
+import base.repository.CategoryRepository;
 import base.service.ProductService;
-@RestController("/product/")
+@RestController
+@RequestMapping("/product")
 public class ProductController {
 	@Autowired
     private ProductService service;
-	
-
+	@Autowired
+	private CategoryRepository cateRepo;
     // view List
     @GetMapping("viewList")
     public  ResponseEntity<List<ProductDto>> listProducts(){	
@@ -42,13 +46,12 @@ public class ProductController {
     public ResponseEntity<Product> addProduct(@RequestBody Product p){
        return ResponseEntity.status(HttpStatus.OK).body(service.save(p));
     }
-    
-    
-    
-
-    
-    
-    
+    @GetMapping("getByCategory/{categoryName}")
+    public ResponseEntity<List<Product>> findByCategory(@PathVariable String categoryName){
+    	Category c = cateRepo.findByName(categoryName);
+    	
+    	return ResponseEntity.status(HttpStatus.OK).body(c.getProducts());
+    }
     // pagination
     @GetMapping("pagination")
     public Page<ProductDto> getPage(@RequestParam Optional<Integer> page , 

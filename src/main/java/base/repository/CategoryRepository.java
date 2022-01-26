@@ -9,5 +9,5 @@ import base.model.entity.Category;
 @Repository
 @Transactional
 public interface CategoryRepository extends JpaRepository<Category, Integer> {
-	
+	Category findByName(String name);
 }

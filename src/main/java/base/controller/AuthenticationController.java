@@ -99,7 +99,6 @@ public class AuthenticationController {
 			return new ResponseEntity(new ApiResponse(false, "Username is already exist"), 
 					HttpStatus.BAD_REQUEST);
 		}
-		
 		//Validate phone number
 		if(userService.existsByPhoneNumber(signUpRequest.getPhoneNumber())) {
 			return new ResponseEntity(new ApiResponse(false, "Phone number is already in user"), 
@@ -120,7 +119,7 @@ public class AuthenticationController {
 		
 		user.setRoles(Collections.singleton(userRole));
 		
-		user.setEnabled(true);
+//		user.setEnabled(true);
 		
 		//Create new cart for user
 		

@@ -125,7 +125,7 @@ public class UserService {
 		}
 		
 		UserDto userDto = userRepository.findById(id).map(u -> {
-			u.setEnabled(!u.getEnabled()); //Toggle user status true/false
+//			u.setEnabled(!u.getEnabled()); //Toggle user status true/false
 			User updatedUser = userRepository.save(u);
 
 			return mapUsertoUserDto(updatedUser);

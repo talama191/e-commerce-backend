@@ -59,7 +59,7 @@ public class AppUserDetail implements UserDetails{
 		this.address = user.getAddress();
 		this.gender = user.getGender();
 		this.dob = user.getDob();
-		this.enabled = user.getEnabled();
+//		this.enabled = user.getEnabled();
 		this.authorities =  user.getRoles().stream()
 											.map(role -> new SimpleGrantedAuthority(role.getName()))
 											.collect(Collectors.toList());
