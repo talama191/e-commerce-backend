@@ -1,5 +1,7 @@
 package base.model.payload;
 
+import org.springframework.security.core.userdetails.UserDetails;
+
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -14,5 +16,7 @@ public class AuthenticationResponse {
 	private String jwt;
 	
 	private String tokenType="Bearer";
+	@NonNull
+	private UserDetails userDetails;
 	
 }

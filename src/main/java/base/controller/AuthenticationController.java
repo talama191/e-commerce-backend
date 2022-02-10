@@ -78,8 +78,8 @@ public class AuthenticationController {
 		
 		final UserDetails userDetails = userDetailService.loadUserByUsername(loginRequest.getUsernameOrEmail());
 		final String jwt = jwtUtil.generateToken(userDetails);
-
-		return ResponseEntity.ok(new AuthenticationResponse(jwt));
+    //new AuthenticationResponse(jwt) ,
+		return ResponseEntity.status(HttpStatus.OK).body(new AuthenticationResponse(jwt,userDetails));
 	}
 	
 	/**

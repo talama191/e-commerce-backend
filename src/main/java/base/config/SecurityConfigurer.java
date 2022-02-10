@@ -1,6 +1,7 @@
 package base.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,6 +17,14 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import base.filter.JwtAuthenticationFilter;
 import base.security.AppUserDetailService;
+import io.swagger.v3.oas.models.Components;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.headers.Header;
+import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.info.License;
+import io.swagger.v3.oas.models.media.StringSchema;
+import io.swagger.v3.oas.models.parameters.Parameter;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 
 /**
  * Security Configuration file
@@ -59,9 +68,10 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter{
                     "/**/*.jpg",
                     "/**/*.html",
                     "/**/*.css",
-                    "/**/*.js")
+                    "/**/*.js","/swagger-ui/**", "/v3/api-docs/**")
             .permitAll()
 			.antMatchers("/api/auth/**").permitAll()
+			.antMatchers("/user-management/user/all").hasAuthority("ADMIN")
 			.anyRequest().authenticated()
 			.and()
 			.sessionManagement()
@@ -78,6 +88,15 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter{
 	@Bean
 	protected AuthenticationManager authenticationManager() throws Exception {
 		return super.authenticationManager();
+	}
+	
+	
+	@Bean
+	 public OpenAPI customOpenAPI() {
+	   return new OpenAPI()
+	          .components(new Components()
+	          .addSecuritySchemes("bearer-key",
+	          new SecurityScheme().type(SecurityScheme.Type.HTTP).scheme("bearer").bearerFormat("JWT")));
 	}
 	
 }

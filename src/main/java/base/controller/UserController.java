@@ -18,6 +18,8 @@ import base.model.dto.UserDto;
 import base.model.dto.UserProfile;
 import base.model.payload.ApiResponse;
 import base.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 @RestController
 @RequestMapping("/user-management")
@@ -29,6 +31,7 @@ public class UserController {
 	// change user role
 	@PostMapping("/user/change-role/{id}")
 	@PreAuthorize("hasRole('ADMIN')")
+	@Operation(security = { @SecurityRequirement(name = "bearer-key") })
 	public ResponseEntity<?> changeUserRole(@PathVariable Integer id, @RequestBody UserDto requestUser) {
 		userService.updateUserRole(id, requestUser);
 
@@ -37,6 +40,7 @@ public class UserController {
 
 	// get user profile
 	@GetMapping("/user/profile/{username}")
+	 @Operation(security = { @SecurityRequirement(name = "bearer-key") })
 	public UserProfile getUserProfile(@PathVariable String username) {
 		UserProfile userProfile = userService.getUserProfile(username);
 
@@ -46,6 +50,7 @@ public class UserController {
 
 	// update user profile
 	@PutMapping("/user/update-profile/{username}")
+	 @Operation(security = { @SecurityRequirement(name = "bearer-key") })
 	public ResponseEntity<?> updateProfile(@PathVariable String username, @RequestBody UserProfile requestUser) {
 		userService.updateUserProfile(username, requestUser);
 
@@ -53,6 +58,7 @@ public class UserController {
 	}
 
 	@PutMapping("/account/password")
+	 @Operation(security = { @SecurityRequirement(name = "bearer-key") })
 	public ResponseEntity<?> changePassword(@PathVariable String username, @RequestBody UserProfile requestUser) {
 		userService.changePassword(username, requestUser);
 
@@ -62,7 +68,8 @@ public class UserController {
 
 	// find all users
 	@GetMapping("/user/all")
-	@PreAuthorize("hasRole('ADMIN')")
+//	@PreAuthorize("hasRole('ADMIN')")
+    @Operation(security = { @SecurityRequirement(name = "bearer-key") })
 	public Page<UserDto> findAllUser(@RequestParam Optional<Integer> page, @RequestParam Optional<String> sortBy,
 			@RequestParam Optional<String> direction) {
 
@@ -71,6 +78,7 @@ public class UserController {
 
 	// find user by id
 	@GetMapping("/user/{id}")
+	 @Operation(security = { @SecurityRequirement(name = "bearer-key") })
 	public UserDto findUserById(@PathVariable Integer id) {
 		return userService.findById(id);
 	}
@@ -78,6 +86,7 @@ public class UserController {
 	//update user status
 	@PutMapping("/user/status/{id}")
 	@PreAuthorize("hasRole('ADMIN')")
+	 @Operation(security = { @SecurityRequirement(name = "bearer-key") })
 	public ResponseEntity<?> updateUserStatus(@PathVariable Integer id) {
 		userService.updateUserStatus(id);
 

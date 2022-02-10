@@ -26,6 +26,8 @@ import base.model.entity.Category;
 import base.model.entity.Product;
 import base.repository.CategoryRepository;
 import base.service.ProductService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 @RestController
 @RequestMapping("/product")
 public class ProductController {
@@ -35,18 +37,22 @@ public class ProductController {
 	private CategoryRepository cateRepo;
     // view List
     @GetMapping("viewList")
+    @Operation(security = { @SecurityRequirement(name = "bearer-key") })
     public  ResponseEntity<List<ProductDto>> listProducts(){	
     	return ResponseEntity.status(HttpStatus.OK).body(service.findAll());
     }
     @GetMapping("productId/{id}")
+    @Operation(security = { @SecurityRequirement(name = "bearer-key") })
     public ResponseEntity<Optional<Product>> getById(@PathVariable int id){
     	return ResponseEntity.status(HttpStatus.OK).body(service.getById(id));
     }
     @PostMapping("add")
+    @Operation(security = { @SecurityRequirement(name = "bearer-key") })
     public ResponseEntity<Product> addProduct(@RequestBody Product p){
        return ResponseEntity.status(HttpStatus.OK).body(service.save(p));
     }
     @GetMapping("getByCategory/{categoryName}")
+    @Operation(security = { @SecurityRequirement(name = "bearer-key") })
     public ResponseEntity<List<Product>> findByCategory(@PathVariable String categoryName){
     	Category c = cateRepo.findByName(categoryName);
     	
@@ -54,6 +60,7 @@ public class ProductController {
     }
     // pagination
     @GetMapping("pagination")
+    @Operation(security = { @SecurityRequirement(name = "bearer-key") })
     public Page<ProductDto> getPage(@RequestParam Optional<Integer> page , 
     		                     @RequestParam Optional<String> sortBy ,
     		                     @RequestParam Optional<String> direction){
