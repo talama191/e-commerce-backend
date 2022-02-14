@@ -41,9 +41,9 @@ public class ProductController {
     public  ResponseEntity<List<ProductDto>> listProducts(){	
     	return ResponseEntity.status(HttpStatus.OK).body(service.findAll());
     }
-    @GetMapping("productId/{id}")
+    @GetMapping("{id}")
     @Operation(security = { @SecurityRequirement(name = "bearer-key") })
-    public ResponseEntity<Optional<Product>> getById(@PathVariable int id){
+    public ResponseEntity<Product> getById(@PathVariable int id){
     	return ResponseEntity.status(HttpStatus.OK).body(service.getById(id));
     }
     @PostMapping("add")
@@ -74,5 +74,11 @@ public class ProductController {
         		sort// sort by or else id
         		);
     	return service.findAllPage(pageable);
+    }
+    
+    
+    @GetMapping("search")
+    public ResponseEntity<List<Product>> search(String keyword){
+    	return ResponseEntity.ok().body(service.search(keyword));
     }
 }

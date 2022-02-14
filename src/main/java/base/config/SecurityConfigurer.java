@@ -70,7 +70,10 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter{
                     "/**/*.css",
                     "/**/*.js","/swagger-ui/**", "/v3/api-docs/**")
             .permitAll()
+            //"/api/auth/**"
 			.antMatchers("/api/auth/**").permitAll()
+			.antMatchers("/cart/**").permitAll()
+			.antMatchers("/product/**").permitAll()
 			.antMatchers("/user-management/user/all").hasAuthority("ADMIN")
 			.anyRequest().authenticated()
 			.and()

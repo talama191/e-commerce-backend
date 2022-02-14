@@ -29,8 +29,11 @@ public class Product {
 	@Column(name="price")
 	private Long price;
 	
-	@Column(name = "img")
-	private String img;
+	@Column(name = "img1")
+	private String img1;
+	
+	@Column(name = "img2")
+	private String img2;
 	
 	@Column(name = "short_description")
 	private String shortDescription;
@@ -43,6 +46,7 @@ public class Product {
 	private Category category;
 	
 	@OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+	@JsonIgnore
 	List<CartLine> cartLines = new ArrayList<>();
 
 }

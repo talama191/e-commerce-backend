@@ -50,12 +50,12 @@ public class ProductService {
 	public Product save(Product p) {
 		return repo.save(p);
 	}
+
 	
-	public Optional<Product> getById(int id) {
+	public Product getById(int id) {
 		return repo.findById(id);
 	}
 
-	
 	public Page<ProductDto> findAllPage(Pageable pageable) {
 		Page<Product> entities = repo.findAll(pageable);
 		Page<ProductDto> dtoPage = entities.map(new Function<Product, ProductDto>() {
@@ -69,6 +69,13 @@ public class ProductService {
 			
 		});
 		return dtoPage;
+	}
+	
+	public List<Product> search(String keyword){ 
+		if (keyword != null) {
+            return repo.search(keyword);
+        }
+        return repo.findAll();
 	}
 	
 

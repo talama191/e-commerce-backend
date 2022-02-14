@@ -29,11 +29,11 @@ public class CartLine {
 	@Column(name = "unit_price")
 	private Long unitPrice;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne()
 	@MapsId(value = "cartId")
 	private Cart cart;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne()
 	@MapsId(value = "productId")
 	private Product product;
 }

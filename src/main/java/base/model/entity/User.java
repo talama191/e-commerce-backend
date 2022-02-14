@@ -9,6 +9,8 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -50,6 +52,7 @@ public class User {
 	private Date dob;
 	
 	@OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
+	@JsonIgnore
 	private Cart cart;
 	
 	@ManyToMany(fetch = FetchType.LAZY)
