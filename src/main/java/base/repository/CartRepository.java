@@ -1,5 +1,7 @@
 package base.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import base.model.entity.Cart;

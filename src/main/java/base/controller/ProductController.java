@@ -70,7 +70,7 @@ public class ProductController {
     	
         Pageable pageable = PageRequest.of(
         		page.orElse(0), // the current page
-        		5, // the size of page
+        		100, // the size of page
         		sort// sort by or else id
         		);
     	return service.findAllPage(pageable);

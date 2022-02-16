@@ -50,9 +50,10 @@ public class CartService {
 		cartRepo.deleteById(id);
 	}
 	
-	public List<CartLine> viewCartLine(){
-		List<CartLine> cartLines = cartlineRepository.findAll();
-		return cartLines;
+	public List<CartLine> viewCartLine(int id){
+	    Cart cart = cartRepo.findById(id);
+		List<CartLine> carts = cart.getCartLines();
+		return carts;
 	}
 	
 	

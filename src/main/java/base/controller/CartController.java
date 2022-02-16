@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import base.model.dto.CartLineDto;
+import base.model.entity.Cart;
 import base.model.entity.CartLine;
 import base.model.entity.Product;
 import base.model.entity.form.CartLineForm;
@@ -32,8 +33,9 @@ public class CartController {
 	}
 	
 	@RequestMapping(value = "viewCart", method = RequestMethod.GET, produces = "application/json")
-	public ResponseEntity<List<CartLine>> viewCart(){
-		return ResponseEntity.ok().body(cartService.viewCartLine());
+	public ResponseEntity<List<CartLine>> viewCart(int id){
+		
+		return ResponseEntity.ok().body(cartService.viewCartLine(id));
 	}
 
 }
