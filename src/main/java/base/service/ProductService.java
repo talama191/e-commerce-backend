@@ -78,6 +78,22 @@ public class ProductService {
         return repo.findAll();
 	}
 	
+	
+	public List<Product> topTrending(){
+		List<Product> products = repo.findAll();
+		List<Product> trending = new ArrayList<Product>();
+		trending.add(products.get(0));
+		trending.add(products.get(1));
+		trending.add(products.get(2));
+		trending.add(products.get(3));
+		trending.add(products.get(4));
+		trending.add(products.get(5));
+		return trending;
+	}
+	
+	
+	
+
 
 
 }

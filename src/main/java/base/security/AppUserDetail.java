@@ -51,6 +51,7 @@ public class AppUserDetail implements UserDetails{
 	private List<? extends GrantedAuthority> authorities;
 	
 	public AppUserDetail(User user) {
+		this.id= user.getId();
 		this.username = user.getUsername();
 		this.password = user.getPassword();
 		this.fullname = user.getFullname();

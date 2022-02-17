@@ -35,6 +35,13 @@ public class Product {
 	@Column(name = "img2")
 	private String img2;
 	
+	@Column(name = "img3")
+	private String img3;
+	
+	@Column(name = "img4")
+	private String img4;
+	
+	
 	@Column(name = "short_description")
 	private String shortDescription;
 	

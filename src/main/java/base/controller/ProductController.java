@@ -81,4 +81,9 @@ public class ProductController {
     public ResponseEntity<List<Product>> search(String keyword){
     	return ResponseEntity.ok().body(service.search(keyword));
     }
+    
+    @GetMapping("trending")
+    public ResponseEntity<List<Product>> getTrendindProduct(){
+    	return ResponseEntity.ok().body(service.topTrending());
+    }
 }

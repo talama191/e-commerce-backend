@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import base.model.entity.Cart;
 import base.model.entity.Role;
 import base.model.entity.User;
 import base.model.payload.ApiResponse;
@@ -23,13 +24,14 @@ import base.model.payload.LoginRequest;
 import base.model.payload.SignUpRequest;
 import base.security.AppUserDetailService;
 import base.security.JwtUtil;
+import base.service.CartService;
 import base.service.RoleService;
 import base.service.UserService;
 
 /**
  * Provide sign in and sign up API
  * 
- * @author Huu Bang
+ * @author Vi Tuan
  *
  */
 @RestController
@@ -50,6 +52,9 @@ public class AuthenticationController {
 	
 	@Autowired
 	private JwtUtil jwtUtil;
+	
+	@Autowired
+	private CartService cartService;
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
@@ -119,13 +124,18 @@ public class AuthenticationController {
 		
 		user.setRoles(Collections.singleton(userRole));
 		
+
+
 //		user.setEnabled(true);
 		
 		//Create new cart for user
 		
 		
 		User result = userService.save(user);
-		
+		Cart cart = new Cart();
+		cart.setId(result.getId());
+		cart.setUser(result);
+		cartService.saveCart(cart);
 		return ResponseEntity.ok(result);
 		
 	}
