@@ -2,6 +2,7 @@ package base.controller;
 
 import java.util.Optional;
 
+import base.model.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -68,7 +69,7 @@ public class UserController {
 
 	// find all users
 	@GetMapping("/user/all")
-//	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN')")
     @Operation(security = { @SecurityRequirement(name = "bearer-key") })
 	public Page<UserDto> findAllUser(@RequestParam Optional<Integer> page, @RequestParam Optional<String> sortBy,
 			@RequestParam Optional<String> direction) {
@@ -92,6 +93,19 @@ public class UserController {
 
 		return ResponseEntity.ok(new ApiResponse(true, "Update information success"));
 
+	}
+
+
+
+	@PutMapping("/user/userChangePassword")
+	@Operation(security = { @SecurityRequirement(name = "bearer-key") })
+	public ResponseEntity<?> userChangePassword(@RequestParam int userId,@RequestParam String oldPassword,@RequestParam String newPassword) throws Exception {
+		User user = userService.userChangePassword(userId,oldPassword,newPassword);
+		if(user == null){
+			return ResponseEntity.ok(new ApiResponse(false, "wrong password"));
+		}else{
+			return ResponseEntity.ok(user);
+		}
 	}
 
 }

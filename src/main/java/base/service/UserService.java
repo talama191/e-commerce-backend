@@ -1,10 +1,12 @@
 package base.service;
 
+import java.util.Base64;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import base.model.payload.ApiResponse;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -194,6 +196,20 @@ public class UserService {
 		userDto.setRole(roleDto);
 		
 		return userDto;
+	}
+
+
+	@Transactional
+	public User userChangePassword(int userId,String oldPassword,String newPassword) throws Exception {
+		User user = userRepository.findById(userId).orElseThrow();
+		if (!passwordEncoder.matches(oldPassword,user.getPassword())){
+			return null;
+		}else{
+			user.setPassword(passwordEncoder.encode(newPassword));
+		}
+
+		return userRepository.save(user);
+
 	}
 	
 
