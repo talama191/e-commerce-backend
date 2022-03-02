@@ -201,7 +201,7 @@ public class UserService {
 
 	@Transactional
 	public User userChangePassword(int userId,String oldPassword,String newPassword) throws Exception {
-		User user = userRepository.findById(userId).orElseThrow();
+		User user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
 		if (!passwordEncoder.matches(oldPassword,user.getPassword())){
 			return null;
 		}else{

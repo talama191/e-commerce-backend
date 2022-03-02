@@ -1,5 +1,6 @@
 package base.model.entity;
 
+import java.nio.MappedByteBuffer;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -63,5 +64,11 @@ public class User {
 
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	List<Order> orders = new ArrayList<>();
+
+
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+	@JsonIgnore
+	List<Comment> comment = new ArrayList<>();
+
 
 }

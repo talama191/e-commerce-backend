@@ -56,4 +56,8 @@ public class Product {
 	@JsonIgnore
 	List<CartLine> cartLines = new ArrayList<>();
 
+	@OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+	@JsonIgnore
+	List<Comment> comment = new ArrayList<>();
+
 }
