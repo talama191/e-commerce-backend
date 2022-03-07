@@ -1,6 +1,19 @@
 package base.controller;
 
 import base.service.MinioService;
+import io.minio.errors.ErrorResponseException;
+import io.minio.errors.InsufficientDataException;
+import io.minio.errors.InternalException;
+import io.minio.errors.InvalidResponseException;
+import io.minio.errors.ServerException;
+import io.minio.errors.XmlParserException;
+
+import java.io.IOException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.util.List;
+
+import org.simpleframework.xml.Path;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +33,11 @@ public class MinioController {
     public String upload(@PathVariable("bucketName") String bucketName, @RequestPart(value = "file") MultipartFile files) throws Exception {
         String storedPath = minioService.upload(files, bucketName);
         return storedPath;
+    }
+    
+    @GetMapping("/list/bucket/{bucketName}")
+    public List<String> getListBucket(@PathVariable String bucketName) throws InvalidKeyException, ServerException, InsufficientDataException, ErrorResponseException, NoSuchAlgorithmException, InvalidResponseException, XmlParserException, InternalException, IOException{
+    	return minioService.listObjectNames(bucketName);
     }
 
 }

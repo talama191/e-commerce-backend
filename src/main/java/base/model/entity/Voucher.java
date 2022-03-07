@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.sun.istack.Nullable;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -32,9 +34,11 @@ public class Voucher {
 	private Integer discountPercent;
 	
 	@Column(name = "expired_at")
+	@Nullable
 	private Timestamp expiredAt;
 	
 	@Column(name = "created_at")
+	@Nullable
 	private Timestamp createdAt;
 
 }
