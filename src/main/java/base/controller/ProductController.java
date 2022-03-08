@@ -1,5 +1,8 @@
 package base.controller;
 
+import java.io.IOException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Optional;
 
@@ -9,6 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,15 +21,24 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
-
+import com.sun.istack.Nullable;
 
 import base.model.dto.ProductDto;
 import base.model.entity.Category;
 import base.model.entity.Product;
+import base.model.entity.form.ProductInsertForm;
 import base.repository.CategoryRepository;
 import base.service.ProductService;
+import io.minio.errors.ErrorResponseException;
+import io.minio.errors.InsufficientDataException;
+import io.minio.errors.InternalException;
+import io.minio.errors.InvalidResponseException;
+import io.minio.errors.ServerException;
+import io.minio.errors.XmlParserException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 @RestController
@@ -46,10 +59,11 @@ public class ProductController {
     public ResponseEntity<Product> getById(@PathVariable int id){
     	return ResponseEntity.status(HttpStatus.OK).body(service.getById(id));
     }
-    @PostMapping("add")
+    @PostMapping(value="add/files")
     @Operation(security = { @SecurityRequirement(name = "bearer-key") })
-    public ResponseEntity<Product> addProduct(@RequestBody Product p){
-       return ResponseEntity.status(HttpStatus.OK).body(service.save(p));
+    public ResponseEntity<Product> addProduct(@RequestBody Product p)  {
+   
+    	return ResponseEntity.status(HttpStatus.OK).body(service.save(p));
     }
     @GetMapping("getByCategory/{categoryName}")
     @Operation(security = { @SecurityRequirement(name = "bearer-key") })

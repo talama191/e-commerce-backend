@@ -6,7 +6,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
  * Allow cross origin requests from the react client
- * @author Huu Bang
+ * @author
  *
  */
 @Configuration

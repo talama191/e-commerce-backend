@@ -1,5 +1,8 @@
 package base.service;
 
+import java.io.IOException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -13,16 +16,29 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.multipart.MultipartFile;
 
 import base.model.dto.ProductDto;
 import base.model.entity.Product;
+import base.model.entity.form.ProductInsertForm;
+import base.repository.CategoryRepository;
 import base.repository.ProductRepository;
+import io.minio.errors.ErrorResponseException;
+import io.minio.errors.InsufficientDataException;
+import io.minio.errors.InternalException;
+import io.minio.errors.InvalidResponseException;
+import io.minio.errors.ServerException;
+import io.minio.errors.XmlParserException;
 
 @Service
 @EnableTransactionManagement
 public class ProductService {
 	@Autowired
 	private ProductRepository repo;
+	@Autowired
+	private MinioService minioService;
+	@Autowired
+	private CategoryRepository categoryRepository;
     
 	// list products DTO
 
