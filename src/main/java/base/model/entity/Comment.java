@@ -1,11 +1,14 @@
 package base.model.entity;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder.Default;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+
+import org.hibernate.annotations.ColumnDefault;
 
 import base.model.composite.CommentId;
 
@@ -25,4 +28,6 @@ public class Comment {
 	@ManyToOne()
 	@JoinColumn(name = "product_id",insertable=false, updatable=false)
 	private Product product;
+	@Column(name="rate")
+	private int rate;
 }

@@ -12,4 +12,5 @@ public class CommentForm {
   private int userId;
   private int productId;
   private String comment;
+  private int rate;
 }

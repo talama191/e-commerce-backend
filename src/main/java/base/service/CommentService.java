@@ -38,6 +38,7 @@ public class CommentService {
         comment.setContent(commentForm.getComment());
         comment.setUser(user);
         comment.setProduct(product);
+       comment.setRate(commentForm.getRate());
         return commentRepository.save(comment);
     }
 }
