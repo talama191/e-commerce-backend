@@ -21,6 +21,9 @@ public class ProductInsertForm {
 	private String shortDescription;
 	private String longDescription;
 	private String CategoryName;
+	private MultipartFile img1;
+	@Nullable
+	private MultipartFile img2;
 	
 
 }

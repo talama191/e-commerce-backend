@@ -59,11 +59,18 @@ public class ProductController {
     public ResponseEntity<Product> getById(@PathVariable int id){
     	return ResponseEntity.status(HttpStatus.OK).body(service.getById(id));
     }
-    @PostMapping(value="add/files")
+    @PostMapping(value="add", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     @Operation(security = { @SecurityRequirement(name = "bearer-key") })
-    public ResponseEntity<Product> addProduct(@RequestBody Product p)  {
+    public ResponseEntity<Product> addProduct(
+    	  @RequestParam	String name,
+    	  @RequestParam Long price,
+    	  @RequestParam String shortDescription,
+    	  @RequestParam String longDescription,
+    	  @RequestParam String categoryName,
+    	  @RequestPart(value = "img1") MultipartFile img1,
+    	  @RequestPart(value = "img2")  @Nullable MultipartFile img2) throws InvalidKeyException, ServerException, InsufficientDataException, ErrorResponseException, NoSuchAlgorithmException, InvalidResponseException, XmlParserException, InternalException, IOException  {
    
-    	return ResponseEntity.status(HttpStatus.OK).body(service.save(p));
+    	return ResponseEntity.status(HttpStatus.OK).body(service.save(name, price, shortDescription, longDescription, categoryName, img1, img2));
     }
     @GetMapping("getByCategory/{categoryName}")
     @Operation(security = { @SecurityRequirement(name = "bearer-key") })
@@ -100,4 +107,5 @@ public class ProductController {
     public ResponseEntity<List<Product>> getTrendindProduct(){
     	return ResponseEntity.ok().body(service.topTrending());
     }
+    
 }

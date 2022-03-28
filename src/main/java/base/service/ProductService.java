@@ -18,6 +18,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.sun.istack.Nullable;
+
 import base.model.dto.ProductDto;
 import base.model.entity.Product;
 import base.model.entity.form.ProductInsertForm;
@@ -63,8 +65,26 @@ public class ProductService {
 		return proDto;
 	}
 	
-	public Product save(Product p) {
-		return repo.save(p);
+	public Product save(String name,
+			            Long price,
+			            String shortDescription,
+			            String longDescription,
+			            String categoryName,
+			            MultipartFile img1,
+			            @Nullable MultipartFile img2) throws InvalidKeyException, ServerException, InsufficientDataException, ErrorResponseException, NoSuchAlgorithmException, InvalidResponseException, XmlParserException, InternalException, IOException {
+		Product product = new Product();
+		product.setName(name);
+		product.setPrice(price);
+		product.setShortDescription(shortDescription);
+		product.setLongDescription(longDescription);
+		product.setCategory(categoryRepository.findByName(categoryName));
+		product.setImg1(minioService.upload(img1, "bucket"));
+		product.setImg2(minioService.upload(img2, "bucket"));
+		return repo.save(product);
+	}
+	
+	public Product findByName(String name) {
+		return repo.findByName(name);
 	}
 
 	
