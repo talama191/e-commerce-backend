@@ -9,12 +9,10 @@ target/
 .classpath
 .factorypath
 .project
-.settings
 .springBeans
 .sts4-cache
 
 ## Spring Boot ##
-*.application.properties
 
 ### IntelliJ IDEA ###
 .idea
