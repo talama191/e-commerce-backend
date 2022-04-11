@@ -34,7 +34,7 @@ public class CartService {
 		
 		if(ifExisted(product, cartId)) {
 			CartLine cartLine = cartlineRepository.findProductInCart(product, cart);
-			int quantity = cartLine.getQuantity() +1;
+			int quantity = cartLine.getQuantity() +cartLineForm.getQuantity();
 			cartLine.setQuantity(quantity);
 			return cartlineRepository.save(cartLine);
 		}else {
