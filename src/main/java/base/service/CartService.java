@@ -51,6 +51,11 @@ public class CartService {
 	  
 		
 	}
+
+	public int clearCart(int cartId){
+		cartlineRepository.clearCart(cartId);
+		return 1;
+	}
 	
 	public void removeItem(int cartId , int productId) {
 		Cart cart = cartRepo.findById(cartId);
