@@ -57,7 +57,6 @@ public class CheckoutController {
         // We get the sessionId and we putted inside the response data you can get more info from the session object
         responseData.put("id", session.getId());
         // We can return only the sessionId as a String
-        System.out.println("successs!!!!!!!!!!!!!!!!!!!!!!!");
         return gson.toJson(responseData);
     }
 
