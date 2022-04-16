@@ -126,7 +126,9 @@ public class ProductService {
 		trending.add(products.get(16));
 		return trending;
 	}
-	
+	public void deleteProduct(int id) {
+		repo.deleteById(id);
+	}
 	
 	
 
